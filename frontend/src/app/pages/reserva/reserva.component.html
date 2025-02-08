@@ -1,0 +1,35 @@
+<div #scrollContainer class="content">
+    <div class="reserva-container">
+        <mat-card class="demo-inline-calendar-card">
+            <mat-calendar [(selected)]="selectedDate" (selectedChange)="onDateChange($event)"></mat-calendar>
+        </mat-card>
+
+        <div *ngIf="selectedDate">
+            <table #scheduleTable class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>Disponibilidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let time of availableTimes">
+                        <td>{{ time }}</td>
+                        <td>
+                            <button mat-raised-button [color]="selectedTime === time ? 'primary' : 'accent'"
+                                (click)="selectTime(time)">
+                                {{ selectedTime === time ? 'Seleccionado' : 'Seleccionar' }}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="selectedTime">
+            <h3>Has seleccionado:</h3>
+            <p>Fecha: {{ selectedDate | date: 'fullDate' }}</p>
+            <p>Horario: {{ selectedTime }}</p>
+        </div>
+    </div>
+</div>
