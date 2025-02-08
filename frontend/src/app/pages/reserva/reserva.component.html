@@ -30,6 +30,48 @@
             <h3>Has seleccionado:</h3>
             <p>Fecha: {{ selectedDate | date: 'fullDate' }}</p>
             <p>Horario: {{ selectedTime }}</p>
+
+            <!-- Formulario para ingresar datos de la reserva -->
+            <form (ngSubmit)="crearReserva()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Cédula</mat-label>
+                    <input matInput type="text" [(ngModel)]="reserva.cedula" name="cedula" required
+                           (ngModelChange)="validarCedula(reserva.cedula)">
+                    <mat-hint *ngIf="validCedula === false" style="color: red;">
+                        ❌ Cédula inválida
+                    </mat-hint>
+                    <mat-hint *ngIf="validCedula === true" style="color: green;">
+                        ✅ Cédula válida
+                    </mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput type="text" [(ngModel)]="reserva.nombre" name="nombre" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Correo</mat-label>
+                    <input matInput type="email" [(ngModel)]="reserva.correo" name="correo" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Curso</mat-label>
+                    <input matInput type="text" [(ngModel)]="reserva.curso" name="curso" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Carrera</mat-label>
+                    <input matInput type="text" [(ngModel)]="reserva.carrera" name="carrera" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Razón</mat-label>
+                    <textarea matInput [(ngModel)]="reserva.razon" name="razon" required></textarea>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit">Reservar</button>
+            </form>
         </div>
     </div>
 </div>

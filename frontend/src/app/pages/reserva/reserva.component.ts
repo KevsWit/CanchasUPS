@@ -6,15 +6,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-reserva',
   standalone: true,
-  imports: [CommonModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatNativeDateModule, MatCardModule],
+  imports: [CommonModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatNativeDateModule, MatCardModule, HttpClientModule, FormsModule],
   templateUrl: './reserva.component.html',
   styleUrl: './reserva.component.css'
 })
 export class ReservaComponent {
+
+  constructor(private http: HttpClient) {}
 
   @ViewChild('scrollContainer') scrollContainer: any;
   @ViewChild('scheduleTable') scheduleTable: any;
@@ -22,6 +26,49 @@ export class ReservaComponent {
   selectedDate: Date | null = null; // Fecha seleccionada en el calendario
   selectedTime: string | null = null; // Horario seleccionado
   availableTimes: string[] = []; // Horarios disponibles
+
+  reserva = {
+    cedula: '',
+    nombre: '',
+    correo: '',
+    curso: '',
+    carrera: '',
+    razon: '',
+    fecha: '',
+    hora: ''
+  };
+
+  // Método para enviar la reserva al backend
+  crearReserva(): void {
+    if (!this.reserva.cedula || !this.reserva.nombre || !this.reserva.correo || !this.reserva.curso || !this.reserva.carrera || !this.reserva.razon || !this.reserva.fecha || !this.reserva.hora) {
+      alert('Por favor, llena todos los campos.');
+      return;
+    }
+
+    this.http.post('http://localhost:3773/api/reservas/crear', this.reserva)
+      .subscribe(response => {
+        alert('Reserva creada con éxito');
+        this.resetForm();
+      }, error => {
+        alert('Error al crear la reserva');
+        console.error(error);
+      });
+  }
+
+  // Método para limpiar el formulario después de hacer una reserva
+  resetForm(): void {
+    this.reserva = {
+      cedula: '',
+      nombre: '',
+      correo: '',
+      curso: '',
+      carrera: '',
+      razon: '',
+      fecha: '',
+      hora: ''
+    };
+    this.selectedTime = null;
+  }
 
   scrollToScheduleTable(): void {
     if (this.scheduleTable) {
@@ -63,5 +110,45 @@ export class ReservaComponent {
   // Método para seleccionar un horario
   selectTime(time: string): void {
     this.selectedTime = time; // Actualiza el horario seleccionado
+
+    // Actualiza los valores de la reserva
+    if (this.selectedDate) {
+      this.reserva.fecha = this.selectedDate.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+      this.reserva.hora = time;
+    }
+  }
+
+
+  validCedula: boolean | null = null; // Indica si la cédula es válida o no
+
+  // Método para validar la cédula ecuatoriana
+  validarCedula(cedula: string): void {
+    if (cedula.length !== 10 || isNaN(Number(cedula))) {
+      this.validCedula = false;
+      return;
+    }
+
+    const coeficientes = [2, 1, 2, 1, 2, 1, 2, 1, 2]; // Coeficientes para la validación
+    const provincia = parseInt(cedula.substring(0, 2), 10);
+    const digitoVerificador = parseInt(cedula[9], 10);
+    let suma = 0;
+
+    if (provincia < 1 || provincia > 24) {
+      this.validCedula = false;
+      return;
+    }
+
+    for (let i = 0; i < 9; i++) {
+      let valor = parseInt(cedula[i], 10) * coeficientes[i];
+      if (valor >= 10) {
+        valor -= 9;
+      }
+      suma += valor;
+    }
+
+    const residuo = suma % 10;
+    const resultado = residuo === 0 ? 0 : 10 - residuo;
+
+    this.validCedula = resultado === digitoVerificador;
   }
 }
