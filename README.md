@@ -19,10 +19,13 @@ cd backend
 ```
 
 ### 2️⃣ Instalar dependencias
+
+Instalar [Node](https://nodejs.org/es/download)
+
 ```bash
+npm install -g npm@latest
 npm install express mongoose cors
 ```
-
 ### 3️⃣ Instalar `nodemon` globalmente (para reinicio automático del servidor)
 ```bash
 npm install -g nodemon
