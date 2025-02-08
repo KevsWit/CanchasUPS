@@ -1,12 +1,13 @@
 :host {
     display: block;
-    height: 100vh;
+    min-height: 100vh; /* La página puede crecer hacia abajo */
     width: 100%;
     background-image: url('/assets/Salesiana.gif');
     background-size: cover; /* Asegura que el GIF cubra toda el área */
     background-position: center; /* Centra el GIF */
     background-repeat: no-repeat; /* Evita que el GIF se repita */
-    overflow: hidden; /* Opcional: Evita scrolls innecesarios */
+    background-attachment: fixed; /* El GIF permanece fijo mientras se hace scroll */
+    overflow: auto; /* Permite scroll si es necesario */
     position: relative;
 }
   
@@ -19,6 +20,7 @@
     height: 100%;
     background: rgba(0,0,0, 0.8); /* Capa semitransparente encima del GIF */
     z-index: 0; /* Coloca esta capa debajo del contenido */
+    pointer-events: none; /* Asegura que no interfiera con los clics del contenido */
 }
 
 .content {
@@ -27,8 +29,19 @@
     color: white;
     text-align: center;
     padding-top: 30vh;
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-    font-size: large;
+}
+
+
+.table-container {
+    overflow-y: auto;   /* Activa el scroll vertical */
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.table td, .table th {
+    text-align: center;
+    vertical-align: middle;
+}
+.reserved {
+    background-color: #ffcccc !important; /* Rojo para reservados */
 }
