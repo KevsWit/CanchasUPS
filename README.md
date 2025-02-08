@@ -39,8 +39,6 @@ Abre el archivo `package.json` y asegúrate de que en la sección `scripts` teng
   "dev": "nodemon index.js"
 }
 ```
-```
-
 ### 5️⃣ Iniciar el servidor
 #### Opción 1: Usando `nodemon`
 ```bash
