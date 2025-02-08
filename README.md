@@ -19,10 +19,13 @@ cd backend
 ```
 
 ### 2️⃣ Instalar dependencias
-```bash
-npm install express mongoose cors
-```
 
+Instalar [Node](https://nodejs.org/es/download)
+
+```bash
+npm install -g npm@latest
+npm install express mongoose cors dotenv mongo-sanitize helmet express-rate-limit
+```
 ### 3️⃣ Instalar `nodemon` globalmente (para reinicio automático del servidor)
 ```bash
 npm install -g nodemon
@@ -36,8 +39,6 @@ Abre el archivo `package.json` y asegúrate de que en la sección `scripts` teng
   "dev": "nodemon index.js"
 }
 ```
-```
-
 ### 5️⃣ Iniciar el servidor
 #### Opción 1: Usando `nodemon`
 ```bash
@@ -55,3 +56,33 @@ npm run dev
 ```
 ✍️ **Nota:** Próximamente se agregará la documentación para el frontend con Angular y Bootstrap.
 
+---
+
+## Instalación y Configuración del Frontend
+
+### 1️⃣ Navegar a la carpeta del frontend
+```bash
+cd frontend
+```
+
+### 2️⃣ Instalar dependencias
+Ejecutar el siguiente comando para instalar las dependencias necesarias de Angular:
+```bash
+npm install
+```
+
+### 3️⃣ Ejecutar en modo desarrollo
+Para levantar el frontend en modo desarrollo, ejecutar:
+```bash
+ng serve -o
+```
+Este comando iniciará el servidor de desarrollo y abrirá automáticamente la aplicación en el navegador.
+
+### 4️⃣ Exportar el frontend
+Para generar una versión lista para producción, ejecutar:
+```bash
+ng build --configuration=production
+```
+Este comando generará una carpeta `dist/` dentro del proyecto, la cual contendrá los archivos optimizados del frontend.
+
+📌 **Nota:** La carpeta `dist/` se debe servir desde un servidor web como **Nginx**, **Apache** o mediante un servicio en la nube.
