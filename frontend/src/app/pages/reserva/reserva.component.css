@@ -1,0 +1,101 @@
+:host {
+    display: block;
+    min-height: 100vh; /* La página puede crecer hacia abajo */
+    width: 100%;
+    background-image: url('/assets/Salesiana.gif');
+    background-size: cover; /* El GIF permanece del mismo tamaño */
+    background-position: center;
+    background-repeat: no-repeat; /* Evita que el GIF se repita */
+    background-attachment: fixed; /* El GIF permanece fijo mientras se hace scroll */
+    overflow: auto; /* Permite scroll si es necesario */
+    position: relative;
+}
+
+:host::before {
+    content: '';
+    position: absolute; /* Ajustado a 'absolute' para que siga el tamaño del :host */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Se ajusta a la altura del contenido del :host */
+    background: rgba(0, 0, 0, 0.7); /* Capa semitransparente */
+    z-index: 0; /* Coloca esta capa debajo del contenido */
+    pointer-events: none; /* Asegura que no interfiera con los clics del contenido */
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    padding-top: 30vh;
+    position: relative;
+}
+
+.reserva-container {
+    margin: 20px auto;
+    background-color: #333;
+    color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+}
+
+.schedule-container {
+    margin-top: 20px;
+    overflow-x: auto;
+    /* Habilitar scroll horizontal si es necesario */
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.schedule-table th,
+.schedule-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.schedule-table th {
+    background-color: #444;
+    color: white;
+    font-weight: bold;
+}
+
+.schedule-table tr:nth-child(even) {
+    background-color: #6e6e6e;
+}
+
+.schedule-table tr:hover {
+    background-color: #adadad;
+}
+
+.schedule-table button {
+    min-width: 100px;
+}
+
+.demo-inline-calendar-card {
+    background-color: #444;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+button {
+    min-width: 120px;
+}
+
+h3 {
+    margin-top: 20px;
+}
+
+p {
+    margin: 10px 0;
+}
