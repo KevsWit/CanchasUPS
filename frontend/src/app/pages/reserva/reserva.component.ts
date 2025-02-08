@@ -27,6 +27,9 @@ export class ReservaComponent {
   selectedTime: string | null = null; // Horario seleccionado
   availableTimes: string[] = []; // Horarios disponibles
 
+  validCedula: boolean | null = null; // Indica si la cédula es válida o no
+  cedulaYaReservo: boolean = false; // Indica si la cédula ya hizo una reserva
+
   reserva = {
     cedula: '',
     nombre: '',
@@ -115,11 +118,10 @@ export class ReservaComponent {
     if (this.selectedDate) {
       this.reserva.fecha = this.selectedDate.toISOString().split('T')[0]; // Formato YYYY-MM-DD
       this.reserva.hora = time;
+      this.verificarReservaExistente(this.reserva.cedula, this.selectedDate);
     }
   }
 
-
-  validCedula: boolean | null = null; // Indica si la cédula es válida o no
 
   // Método para validar la cédula ecuatoriana
   validarCedula(cedula: string): void {
@@ -150,5 +152,20 @@ export class ReservaComponent {
     const resultado = residuo === 0 ? 0 : 10 - residuo;
 
     this.validCedula = resultado === digitoVerificador;
+
+    if (this.validCedula && this.selectedDate) {
+      this.verificarReservaExistente(cedula, this.selectedDate);
+    }
+  }
+
+  // Verificar si la cédula ya tiene una reserva en la misma fecha
+  verificarReservaExistente(cedula: string, fecha: Date): void {
+    const fechaStr = fecha.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
+    this.http.get<any[]>('http://localhost:3773/api/reservas/listar').subscribe(reservas => {
+      this.cedulaYaReservo = reservas.some(reserva =>
+        reserva.cedula === cedula && reserva.fecha.split('T')[0] === fechaStr
+      );
+    });
   }
 }

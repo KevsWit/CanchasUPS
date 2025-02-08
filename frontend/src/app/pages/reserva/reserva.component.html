@@ -43,6 +43,9 @@
                     <mat-hint *ngIf="validCedula === true" style="color: green;">
                         ✅ Cédula válida
                     </mat-hint>
+                    <mat-hint *ngIf="cedulaYaReservo" style="color: red;">
+                        ❌ Esta cédula ya tiene una reserva en esta fecha.
+                    </mat-hint>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
@@ -70,7 +73,7 @@
                     <textarea matInput [(ngModel)]="reserva.razon" name="razon" required></textarea>
                 </mat-form-field>
 
-                <button mat-raised-button color="primary" type="submit">Reservar</button>
+                <button mat-raised-button color="primary" type="submit" [disabled]="validCedula === false || cedulaYaReservo">Reservar</button>
             </form>
         </div>
     </div>
