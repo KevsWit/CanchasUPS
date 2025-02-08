@@ -24,7 +24,7 @@ Instalar [Node](https://nodejs.org/es/download)
 
 ```bash
 npm install -g npm@latest
-npm install express mongoose cors
+npm install express mongoose cors dotenv mongo-sanitize helmet express-rate-limit
 ```
 ### 3️⃣ Instalar `nodemon` globalmente (para reinicio automático del servidor)
 ```bash

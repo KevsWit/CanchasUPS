@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { MONGO_URI } = require('./config'); // Importar configuración
 
 // Configurar Promesas de Mongoose
 mongoose.Promise = global.Promise;
@@ -6,13 +7,13 @@ mongoose.Promise = global.Promise;
 // Conectar a la base de datos
 async function conectarDB() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/canchasUPS', {
+        await mongoose.connect(MONGO_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-        console.log('MongoDB conectado a la base canchasUPS');
+        console.log(`✅ MongoDB conectado a: ${MONGO_URI}`);
     } catch (error) {
-        console.error('Error al conectar MongoDB:', error);
+        console.error('❌ Error al conectar MongoDB:', error);
         process.exit(1); // Detiene la aplicación si la conexión falla
     }
 }

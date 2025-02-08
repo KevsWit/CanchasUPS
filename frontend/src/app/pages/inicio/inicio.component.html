@@ -1,4 +1,4 @@
-<div class="content">
+<div #scrollContainer class="content">
     <h1>Bienvenido</h1>
     <p> 
         Bienvenidos al sistema de reservaciones de la cancha de fútbol del Campus Sur de la Universidad Politécnica Salesiana, sede Quito. 
@@ -19,4 +19,27 @@
         juntos una comunidad universitaria activa y comprometida!
     </p>
 
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Calendario de Reservas</h2>
+
+        <div class="table-container">
+            <table #scheduleTable class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Hora</th>
+                        <th *ngFor="let dia of semana">{{ dia | date:'EEEE d/MM' }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let hora of horarios">
+                        <td class="table-secondary">{{ hora }}</td>
+                        <td *ngFor="let dia of semana; let i = index"
+                            [class.reserved]="calendario[hora] && calendario[hora][i]">
+                            {{ calendario[hora] && calendario[hora][i] ? 'Reservado' : 'Disponible' }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
