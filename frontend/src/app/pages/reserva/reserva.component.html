@@ -16,9 +16,11 @@
                     <tr *ngFor="let time of availableTimes">
                         <td>{{ time }}</td>
                         <td>
-                            <button mat-raised-button [color]="selectedTime === time ? 'primary' : 'accent'"
-                                (click)="selectTime(time)">
-                                {{ selectedTime === time ? 'Seleccionado' : 'Seleccionar' }}
+                            <button mat-raised-button
+                                [color]="selectedTime === time ? 'primary' : 'accent'"
+                                (click)="selectTime(time)"
+                                [disabled]="reservedTimes.includes(time)">
+                                {{ reservedTimes.includes(time) ? 'Reservado' : (selectedTime === time ? 'Seleccionado' : 'Seleccionar') }}
                             </button>
                         </td>
                     </tr>

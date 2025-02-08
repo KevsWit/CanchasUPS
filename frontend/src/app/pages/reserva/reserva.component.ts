@@ -26,10 +26,11 @@ export class ReservaComponent {
   selectedDate: Date | null = null; // Fecha seleccionada en el calendario
   selectedTime: string | null = null; // Horario seleccionado
   availableTimes: string[] = []; // Horarios disponibles
+  reservedTimes: string[] = []; // Horarios ya reservados en la fecha seleccionada
 
   validCedula: boolean | null = null; // Indica si la cédula es válida o no
   cedulaYaReservo: boolean = false; // Indica si la cédula ya hizo una reserva
-
+  
   reserva = {
     cedula: '',
     nombre: '',
@@ -85,6 +86,12 @@ export class ReservaComponent {
     this.generateAvailableTimes(); // Genera los horarios para la fecha
     this.selectedTime = null; // Reinicia la selección de horario
 
+    if (this.reserva.cedula) {
+      this.verificarReservaExistente(this.reserva.cedula, date);
+    }
+
+    this.obtenerReservasDelDia(date);
+
     setTimeout(() => {
       this.scrollToScheduleTable();
     }, 0);
@@ -110,8 +117,23 @@ export class ReservaComponent {
     return `${formattedHour}:00 ${period}`;
   }
 
+  // Obtiene las reservas del backend para la fecha seleccionada
+  obtenerReservasDelDia(fecha: Date): void {
+    const fechaStr = fecha.toISOString().split('T')[0];
+
+    this.http.get<any[]>('http://localhost:3773/api/reservas/listar').subscribe(reservas => {
+      this.reservedTimes = reservas
+        .filter(reserva => reserva.fecha.split('T')[0] === fechaStr)
+        .map(reserva => reserva.hora);
+    });
+  }
+
   // Método para seleccionar un horario
   selectTime(time: string): void {
+    if (this.reservedTimes.includes(time)) {
+      return; // Evita que el usuario seleccione una hora reservada
+    }
+
     this.selectedTime = time; // Actualiza el horario seleccionado
 
     // Actualiza los valores de la reserva
