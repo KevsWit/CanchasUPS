@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit');
 const { PORT } = require('./config'); // Importar configuración
 
 const limiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 15 minutos
+    windowMs: 5 * 60 * 1000, // 5 minutos de timeout
     max: 100, // Máximo de 100 peticiones por IP
     message: 'Demasiadas peticiones desde esta IP, por favor intenta más tarde'
 });
