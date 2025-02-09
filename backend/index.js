@@ -29,6 +29,12 @@ app.use(cors({
 app.use(helmet());
 app.use(limiter);
 
+// ** Middleware para evitar la advertencia de Ngrok **
+app.use((req, res, next) => {
+    res.setHeader('ngrok-skip-browser-warning', 'true');
+    next();
+});
+
 // Rutas
 app.use('/api/reservas', require('./routes/reserva.routes'));
 
