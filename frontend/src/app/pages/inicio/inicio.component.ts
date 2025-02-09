@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-inicio',
@@ -10,10 +10,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent implements OnInit {
-
-  @ViewChild('scrollContainer') scrollContainer: any;
-  @ViewChild('scheduleTable') scheduleTable: any;
-
   horarios: string[] = [];
   reservas: any[] = [];
   semana: Date[] = [];
@@ -25,13 +21,6 @@ export class InicioComponent implements OnInit {
     this.generarHorarios();
     this.generarSemana();
     this.obtenerReservas();
-  }
-
-  // Método para hacer scroll automático a la tabla
-  scrollToScheduleTable(): void {
-    if (this.scheduleTable) {
-      this.scheduleTable.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   }
 
   // Genera los horarios de la cancha
@@ -70,7 +59,6 @@ export class InicioComponent implements OnInit {
     this.http.get<any[]>('http://localhost:3773/api/reservas/listar').subscribe(reservas => {
       this.reservas = reservas;
       this.organizarReservas();
-      setTimeout(() => this.scrollToScheduleTable(), 500); // Desplazarse suavemente después de actualizar
     });
   }
 

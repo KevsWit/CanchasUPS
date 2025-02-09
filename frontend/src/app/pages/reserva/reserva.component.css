@@ -18,7 +18,7 @@
     left: 0;
     width: 100%;
     height: 100%; /* Se ajusta a la altura del contenido del :host */
-    background: rgba(0, 0, 0, 0.7); /* Capa semitransparente */
+    background: rgba(0, 0, 0, 0.2); /* Capa semitransparente */
     z-index: 0; /* Coloca esta capa debajo del contenido */
     pointer-events: none; /* Asegura que no interfiera con los clics del contenido */
 }
@@ -28,7 +28,7 @@
     z-index: 1;
     color: white;
     text-align: center;
-    padding-top: 30vh;
+    padding-top: 5vh;
 }
 
 .reserva-container {
@@ -81,11 +81,13 @@
 }
 
 .demo-inline-calendar-card {
-    background-color: #444;
-    color: white;
+    background-color: #ffffff !important; /* Fondo blanco */
+    color: black !important; /* Texto oscuro para mejor contraste */
     padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 
 button {
     min-width: 120px;
@@ -97,4 +99,50 @@ h3 {
 
 p {
     margin: 10px 0;
+}
+
+/* Cambiar el color del texto dentro de los inputs y textareas */
+input, textarea {
+    color: white !important;
+}
+
+/* Cambiar el color del placeholder (texto de ayuda dentro del input) */
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Cambiar el color de los labels de los casilleros */
+.mat-form-field-label {
+    color: white !important;
+}
+
+/* Asegurar que los labels y textos sean blancos en Angular Material */
+.mat-input-element {
+    color: white !important;
+}
+
+/* Establecer el color de las líneas de los input fields */
+.mat-form-field-underline {
+    background-color: white !important;
+}
+
+/* Cambiar el color del icono de ayuda o advertencia */
+.mat-form-field-hint {
+    color: white !important;
+}
+
+/* Cambiar el color de los inputs cuando están en foco */
+.mat-form-field.mat-focused .mat-form-field-label {
+    color: white !important;
+}
+
+/* Evitar que Angular Material cambie el color cuando se hace clic en el campo */
+.mat-form-field.mat-focused .mat-input-element {
+    color: white !important;
+}
+
+/* Asegurar que el contenedor del mat-form-field tenga buen contraste */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: white !important;
+    border-color: white !important;
 }
