@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 
@@ -19,7 +19,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ReservaComponent {
   private apiUrl = environment.apiUrl;
-
+  private headers = new HttpHeaders({ 'ngrok-skip-browser-warning': 'true' });
   constructor(private http: HttpClient) {}
 
   @ViewChild('scrollContainer') scrollContainer: any;
@@ -46,18 +46,21 @@ export class ReservaComponent {
 
   // Método para enviar la reserva al backend
   crearReserva(): void {
-    if (!this.reserva.cedula || !this.reserva.nombre || !this.reserva.correo || !this.reserva.curso || !this.reserva.carrera || !this.reserva.razon || !this.reserva.fecha || !this.reserva.hora) {
+    if (Object.values(this.reserva).some(value => !value)) {
       alert('Por favor, llena todos los campos.');
       return;
     }
 
-    this.http.post(`${this.apiUrl}/reservas/crear`, this.reserva)
-      .subscribe(response => {
-        alert('Reserva creada con éxito');
-        this.resetForm();
-      }, error => {
-        alert('Error al crear la reserva');
-        console.error(error);
+    this.http.post(`${this.apiUrl}/reservas/crear`, this.reserva, { headers: this.headers })
+      .subscribe({
+        next: () => {
+          alert('Reserva creada con éxito');
+          this.resetForm();
+        },
+        error: error => {
+          alert('Error al crear la reserva');
+          console.error(error);
+        }
       });
   }
 
@@ -123,11 +126,15 @@ export class ReservaComponent {
   obtenerReservasDelDia(fecha: Date): void {
     const fechaStr = fecha.toISOString().split('T')[0];
 
-    this.http.get<any[]>(`${this.apiUrl}/reservas/listar`).subscribe(reservas => {
-      this.reservedTimes = reservas
-        .filter(reserva => reserva.fecha.split('T')[0] === fechaStr)
-        .map(reserva => reserva.hora);
-    });
+    this.http.get<any[]>(`${this.apiUrl}/reservas/listar`, { headers: this.headers })
+      .subscribe({
+        next: reservas => {
+          this.reservedTimes = reservas
+            .filter(reserva => reserva.fecha.split('T')[0] === fechaStr)
+            .map(reserva => reserva.hora);
+        },
+        error: error => console.error('Error al obtener reservas:', error)
+      });
   }
 
   // Método para seleccionar un horario
@@ -184,12 +191,16 @@ export class ReservaComponent {
 
   // Verificar si la cédula ya tiene una reserva en la misma fecha
   verificarReservaExistente(cedula: string, fecha: Date): void {
-    const fechaStr = fecha.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+    const fechaStr = fecha.toISOString().split('T')[0];
 
-    this.http.get<any[]>(`${this.apiUrl}/reservas/listar`).subscribe(reservas => {
-      this.cedulaYaReservo = reservas.some(reserva =>
-        reserva.cedula === cedula && reserva.fecha.split('T')[0] === fechaStr
-      );
-    });
+    this.http.get<any[]>(`${this.apiUrl}/reservas/listar`, { headers: this.headers })
+      .subscribe({
+        next: reservas => {
+          this.cedulaYaReservo = reservas.some(reserva =>
+            reserva.cedula === cedula && reserva.fecha.split('T')[0] === fechaStr
+          );
+        },
+        error: error => console.error('Error verificando reserva existente:', error)
+      });
   }
 }
