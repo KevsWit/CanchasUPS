@@ -1,15 +1,15 @@
 :host {
     display: block;
-    height: 100vh;
+    min-height: 100vh; /* Permite que la altura crezca con el contenido */
     width: 100%;
     background-image: url('/assets/Salesiana.gif');
-    background-size: cover; /* Asegura que el GIF cubra toda el área */
-    background-position: center; /* Centra el GIF */
-    background-repeat: no-repeat; /* Evita que el GIF se repita */
-    overflow: hidden; /* Opcional: Evita scrolls innecesarios */
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
     position: relative;
 }
-  
+
 :host::before {
     content: '';
     position: absolute;
@@ -17,8 +17,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0, 0.8); /* Capa semitransparente encima del GIF */
-    z-index: 0; /* Coloca esta capa debajo del contenido */
+    background: rgba(0, 0, 0, 0.7); /* Ajustamos la opacidad */
+    z-index: 0;
 }
 
 .content {
@@ -26,9 +26,19 @@
     z-index: 1;
     color: white;
     text-align: center;
-    padding-top: 5vh;
-    position: relative;
-    max-width: 1000px;
+    padding: 5vh 5vw; /* Agrega espacio proporcional en dispositivos pequeños */
+    max-width: 900px; /* Ajustado para mejor adaptación */
     margin: 0 auto;
-    font-size: large;
+    font-size: 1rem; /* Usa unidades relativas en lugar de 'large' */
+    line-height: 1.5; /* Mejora la legibilidad */
 }
+
+/* Ajustes para móviles */
+@media screen and (max-width: 768px) {
+    .content {
+        font-size: 0.9rem; /* Reduce el tamaño del texto en pantallas pequeñas */
+        padding: 3vh 5vw;
+        max-width: 95%; /* Permite más espacio en móviles */
+    }
+}
+
