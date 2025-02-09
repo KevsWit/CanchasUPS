@@ -74,15 +74,6 @@ npm install
 ### 3️⃣ Ejecutar en modo desarrollo
 Para levantar el frontend en modo desarrollo, ejecutar:
 ```bash
-ng serve -o
+ng serve --host 0.0.0.0 -o
 ```
 Este comando iniciará el servidor de desarrollo y abrirá automáticamente la aplicación en el navegador.
-
-### 4️⃣ Exportar el frontend
-Para generar una versión lista para producción, ejecutar:
-```bash
-ng build --configuration=production
-```
-Este comando generará una carpeta `dist/` dentro del proyecto, la cual contendrá los archivos optimizados del frontend.
-
-📌 **Nota:** La carpeta `dist/` se debe servir desde un servidor web como **Nginx**, **Apache** o mediante un servicio en la nube.
