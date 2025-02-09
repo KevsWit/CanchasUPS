@@ -1,13 +1,24 @@
-<header>
-    <div class="header-container">
-        <img width="200px" src="../../assets/logo.png" alt="Logo UPS">
-        <h1><b>Cancha UPS</b></h1>
-        <nav>
-            <ul>
-            <li><a routerLink="/inicio" routerLinkActive="active" ariaCurrentWhenActive="page">Inicio</a></li>
-            <li><a routerLink="/acerca-de" routerLinkActive="active" ariaCurrentWhenActive="page">Acerca de</a></li>
-            <li><a routerLink="/reserva" routerLinkActive="active" ariaCurrentWhenActive="page">Reserva</a></li>
-            </ul>
+<header class="bg-primary text-white py-2">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="../../assets/logo.png" alt="Logo UPS" class="img-fluid" style="max-height: 50px;">
+            </a>
+
+            <!-- Botón para móviles -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menú de navegación -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link text-white" routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" routerLink="/acerca-de" routerLinkActive="active">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" routerLink="/reserva" routerLinkActive="active">Reserva</a></li>
+                </ul>
+            </div>
         </nav>
     </div>
 </header>

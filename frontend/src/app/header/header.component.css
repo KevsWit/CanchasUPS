@@ -1,33 +1,74 @@
+/* Header */
 header {
     background-color: #007bff;
     color: white;
-    padding: 30px 200px;
+    padding: 15px 20px; /* Reduce el padding en móviles */
+    width: 100%; /* Ocupar todo el ancho */
 }
 
+/* Contenedor del Header */
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; /* Permite que los elementos bajen en móviles */
+    width: 100%;
 }
 
+/* Logo */
+.header-container img {
+    max-width: 180px; /* Ajuste responsivo del logo */
+    height: auto;
+}
+
+/* Título */
 header h1 {
     margin: 0;
+    font-size: 1.8rem; /* Ajuste de tamaño */
+    text-align: center; /* Centrar en móviles */
 }
 
+/* Menú de Navegación */
 nav ul {
     list-style: none;
     display: flex;
     gap: 15px;
     margin: 0;
     padding: 0;
+    flex-wrap: wrap; /* Evita desbordes */
+    justify-content: center; /* Centrar en pantallas pequeñas */
 }
 
+/* Estilos de los enlaces */
 nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    font-size: 1rem; /* Ajuste de tamaño */
 }
 
+/* Enlace activo */
 nav ul li a.active {
     text-decoration: underline;
+}
+
+/* Ajuste para móviles */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column; /* Elementos en columna */
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    nav ul {
+        flex-direction: column; /* Enlaces en columna en móviles */
+        gap: 10px;
+    }
+
+    .header-container img {
+        max-width: 140px; /* Reducción de tamaño del logo */
+    }
 }
