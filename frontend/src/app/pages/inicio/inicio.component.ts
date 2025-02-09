@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-inicio',
@@ -11,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent implements OnInit {
+  private apiUrl = environment.apiUrl;
   horarios: string[] = [];
   reservas: any[] = [];
   semana: Date[] = [];
@@ -66,7 +68,7 @@ export class InicioComponent implements OnInit {
 
   // Obtiene las reservas del backend
   obtenerReservas(): void {
-    this.http.get<any[]>('https://4df9-200-63-104-90.ngrok-free.app/api/reservas/listar').subscribe(reservas => {
+    this.http.get<any[]>(`${this.apiUrl}/reservas/listar`).subscribe(reservas => {
       this.reservas = reservas;
       this.organizarReservas();
     });
