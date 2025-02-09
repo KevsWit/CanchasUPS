@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { environment } from '../../../environments/environment';
@@ -68,9 +68,15 @@ export class InicioComponent implements OnInit {
 
   // Obtiene las reservas del backend
   obtenerReservas(): void {
-    this.http.get<any[]>(`${this.apiUrl}/reservas/listar`).subscribe(reservas => {
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': 'true' // 🔹 Agregar este header
+    });
+  
+    this.http.get<any[]>(`${this.apiUrl}/reservas/listar`, { headers }).subscribe(reservas => {
       this.reservas = reservas;
       this.organizarReservas();
+    }, error => {
+      console.error("Error al obtener reservas:", error);
     });
   }
 

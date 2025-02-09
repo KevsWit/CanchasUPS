@@ -1,18 +1,22 @@
-<div class="content">
-    <h1 style="text-align: center;">Bienvenido</h1>
-    <p> 
-        Bienvenidos al sistema de reservaciones de la cancha de fútbol del Campus Sur de la Universidad Politécnica Salesiana, sede Quito. 
+<div class="content container px-3 px-md-5">
+    <h1 class="text-center mt-4">Bienvenido</h1>
+
+    <p class="fs-5">
+        Bienvenidos al sistema de reservaciones de la cancha de fútbol del <i>Campus Sur de la Universidad Politécnica Salesiana</i>, sede Quito. 
         Nuestro objetivo es brindar a los estudiantes una herramienta sencilla, eficiente y totalmente en línea para que puedan reservar
         horarios de juego de acuerdo con su disponibilidad.
     </p>
-    <p>
+
+    <p class="fs-5">
         En este sitio web, podrás:
-        
-        Consultar la disponibilidad actualizada de la cancha.
-        Elegir fácilmente el horario que más te convenga.
-        Realizar y administrar tus reservaciones en un solo lugar.
     </p>
-    <p>
+    <ul class="fs-5">
+        <li>📅 Consultar la disponibilidad actualizada de la cancha.</li>
+        <li>⚽ Elegir fácilmente el horario que más te convenga.</li>
+        <li>📝 Realizar y administrar tus reservaciones en un solo lugar.</li>
+    </ul>
+
+    <p class="fs-5">
         Con esta plataforma fomentamos la práctica deportiva y la sana convivencia universitaria, 
         asegurando que cada estudiante disfrute de un espacio adecuado para ejercitarse y compartir con sus compañeros. 
         ¡Te invitamos a aprovechar todas las ventajas de este sistema y seguir construyendo 
@@ -20,17 +24,17 @@
     </p>
 
     <div class="container mt-4">
-        <h2 class="text-center mb-4">Calendario de Reservas</h2>
+        <h2 class="text-center mb-4">📅 Calendario de Reservas</h2>
 
         <!-- Navegación de semana -->
-        <div class="semana-navigation">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <button mat-raised-button color="primary" (click)="cambiarSemana(-1)">⬅️ Semana Anterior</button>
-            <h4>{{ semana[0] | date:'d/MM/yyyy' }} - {{ semana[6] | date:'d/MM/yyyy' }}</h4>
+            <h4 class="text-center mb-0">{{ semana[0] | date:'d/MM/yyyy' }} - {{ semana[6] | date:'d/MM/yyyy' }}</h4>
             <button mat-raised-button color="accent" (click)="cambiarSemana(1)">Semana Siguiente ➡️</button>
         </div>
 
-        <div class="table-container">
-            <table class="table table-bordered">
+        <div class="table-container mt-3">
+            <table class="table table-bordered text-center">
                 <thead class="table-dark">
                     <tr>
                         <th>Hora</th>
@@ -39,7 +43,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let hora of horarios">
-                        <td class="table-secondary">{{ hora }}</td>
+                        <td class="table-secondary fw-bold">{{ hora }}</td>
                         <td *ngFor="let dia of semana; let i = index"
                             [class.reserved]="calendario[hora] && calendario[hora][i]">
                             {{ calendario[hora] && calendario[hora][i] ? 'Reservado' : 'Disponible' }}
