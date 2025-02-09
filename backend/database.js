@@ -7,10 +7,7 @@ mongoose.Promise = global.Promise;
 // Conectar a la base de datos
 async function conectarDB() {
     try {
-        await mongoose.connect(MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        await mongoose.connect(MONGO_URI);
         console.log(`✅ MongoDB conectado a: ${MONGO_URI}`);
     } catch (error) {
         console.error('❌ Error al conectar MongoDB:', error);
