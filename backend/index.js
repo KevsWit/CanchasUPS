@@ -11,6 +11,8 @@ const limiter = rateLimit({
     message: 'Demasiadas peticiones desde esta IP, por favor intenta más tarde'
 });
 
+
+
 // Aplicar el límite de peticiones a todas las rutas
 
 
@@ -18,7 +20,12 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
-app.use(cors());
+// Habilitar CORS para permitir peticiones desde el frontend en Ngrok
+app.use(cors({
+    origin: '*', // Permitir todas las solicitudes (puedes cambiarlo a la URL de Ngrok si quieres restringir)
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(helmet());
 app.use(limiter);
 

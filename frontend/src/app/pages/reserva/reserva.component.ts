@@ -49,7 +49,7 @@ export class ReservaComponent {
       return;
     }
 
-    this.http.post('http://localhost:3773/api/reservas/crear', this.reserva)
+    this.http.post('https://4df9-200-63-104-90.ngrok-free.app/api/reservas/crear', this.reserva)
       .subscribe(response => {
         alert('Reserva creada con éxito');
         this.resetForm();
@@ -121,7 +121,7 @@ export class ReservaComponent {
   obtenerReservasDelDia(fecha: Date): void {
     const fechaStr = fecha.toISOString().split('T')[0];
 
-    this.http.get<any[]>('http://localhost:3773/api/reservas/listar').subscribe(reservas => {
+    this.http.get<any[]>('https://4df9-200-63-104-90.ngrok-free.app/api/reservas/listar').subscribe(reservas => {
       this.reservedTimes = reservas
         .filter(reserva => reserva.fecha.split('T')[0] === fechaStr)
         .map(reserva => reserva.hora);
@@ -184,7 +184,7 @@ export class ReservaComponent {
   verificarReservaExistente(cedula: string, fecha: Date): void {
     const fechaStr = fecha.toISOString().split('T')[0]; // Formato YYYY-MM-DD
 
-    this.http.get<any[]>('http://localhost:3773/api/reservas/listar').subscribe(reservas => {
+    this.http.get<any[]>('https://4df9-200-63-104-90.ngrok-free.app/api/reservas/listar').subscribe(reservas => {
       this.cedulaYaReservo = reservas.some(reserva =>
         reserva.cedula === cedula && reserva.fecha.split('T')[0] === fechaStr
       );

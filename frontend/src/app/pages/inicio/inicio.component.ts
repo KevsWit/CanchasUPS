@@ -56,7 +56,7 @@ export class InicioComponent implements OnInit {
 
   // Obtiene las reservas del backend
   obtenerReservas(): void {
-    this.http.get<any[]>('http://localhost:3773/api/reservas/listar').subscribe(reservas => {
+    this.http.get<any[]>('https://4df9-200-63-104-90.ngrok-free.app/api/reservas/listar').subscribe(reservas => {
       this.reservas = reservas;
       this.organizarReservas();
     });
