@@ -22,6 +22,13 @@
     <div class="container mt-4">
         <h2 class="text-center mb-4">Calendario de Reservas</h2>
 
+        <!-- Navegación de semana -->
+        <div class="semana-navigation">
+            <button mat-raised-button color="primary" (click)="cambiarSemana(-1)">⬅️ Semana Anterior</button>
+            <h4>{{ semana[0] | date:'d/MM/yyyy' }} - {{ semana[6] | date:'d/MM/yyyy' }}</h4>
+            <button mat-raised-button color="accent" (click)="cambiarSemana(1)">Semana Siguiente ➡️</button>
+        </div>
+
         <div class="table-container">
             <table class="table table-bordered">
                 <thead class="table-dark">

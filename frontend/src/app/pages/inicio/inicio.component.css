@@ -47,3 +47,11 @@
 .reserved {
     background-color: #ffcccc !important; /* Rojo para reservados */
 }
+
+.semana-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
